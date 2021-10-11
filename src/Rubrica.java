@@ -16,14 +16,39 @@ public class Rubrica {
 	}
 	
 	void aggiungiContatto(String nome, String cognome, String telefono) {
+		this.contatti.add(new Contatto(nome, cognome, telefono));
 	}
 	
 	void rimuoviContatto(String nome, String cognome) {
+		Iterator<Contatto> it = this.contatti.iterator();
+		while(it.hasNext()){
+			Contatto c = it.next();
+			if(c.getNome().equals(nome)&& c.getCognome().equals(cognome)) {
+				it.remove();
+			}
+		}
 	}
 	
 	public String cerca(String nome, String cognome) {
+		String numero = null;
+		Iterator<Contatto> it = this.contatti.iterator();
+		while(it.hasNext() && numero == null) {
+			Contatto c = it.next();
+			if(c.getNome().equals(nome) && c.getCognome().equals(cognome)) {
+				numero = c.getNumero();
+			}
+		}
+		return numero;
 	}
 	
 	public String toString() {
+		String s = "Rubrica\n";
+		s += "---------------------------\n";
+		Iterator<Contatto> it = this.contatti.iterator();
+		while(it.hasNext()) {
+			Contatto c = it.next();
+			s += c.toString() + "\n";
+		}
+		return s;
 	}
 }
